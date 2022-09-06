@@ -1,0 +1,15 @@
+1. Time spent in the device’s hardware media pipeline: This pipeline can comprise of the image sensor and any hardware encoders as appropriate. In theory, this can be as little as a single frame duration. In practice it rarely is. All encoders in order to work effectively for media encoding (compression) will accumulate several frames to construct a fragment. This process and any corresponding motion compensation algorithms will add anywhere from one second to several seconds of latency on the device before the data is packaged for transmission.
+
+2. Latency incurred on actual data transmission on the internet: The quality of the network throughput and latency can vary significantly based on where the producing device is located.
+
+3. Latency added by the Kinesis Video Streams as it receives data from the producer device: The incoming data is made available immediately on the GetMedia API operation for any consuming application. If you choose to retain data, then Kinesis Video Streams will ensure that the data is encrypted using AWS Key Management Service (AWS KMS) and generate a time-based index on the individual fragments in the video stream. When you access this retained data using the GetMediaforFragmentList API, Kinesis Video Streams fetches the fragments from durable storage, decrypt the data, and make it available for the consuming application.
+
+4. Time latency on data transmission back to the consumer: There can be consuming devices on the internet or other AWS regions that request the media data. The quality of the network throughput and latency can vary significantly based on where the consuming device is located.
+
+I suppose you are measuring the full round trip from producer to consumer.  In order to maker a fair analysis we need to check for the latency at each of these nodes. Can you confirm what the speed of your network is from the video capture and also on the cunsumer side?
+
+You mentioned you tried different measures to reduce latency, can you elaborate on that. What measures did you take to reduce it?
+
+Looking forward to hearing from you.
+
+We value your feedback. Please share your experience by rating this and other correspondences in the AWS Support Center. You can rate a correspondence by selecting the stars in the top right corner of the correspondence.
